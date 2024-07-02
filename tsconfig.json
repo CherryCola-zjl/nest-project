@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2021",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false
+  }
+}
+/**
+- module：指定生成的模块化标准，"commonjs" 表示生成 CommonJS 规范的模块。
+- declaration：指定是否生成对应的 .d.ts 声明文件，用于类型检查和代码提示。
+- removeComments：指定是否在输出文件中移除注释。
+- emitDecoratorMetadata：生成装饰器的元数据。
+- experimentalDecorators：启用实验性的装饰器特性。
+- allowSyntheticDefaultImports：允许从没有设置默认导出的模块导入。
+- target：指定编译后的 JavaScript 代码目标版本，"ES2021" 表示目标为 ECMAScript 2021 版本。
+- sourceMap：生成对应的 source map 文件，用于在调试时将编译后的 JavaScript 代码映射回 TypeScript 代码。
+- outDir：指定编译后的 JavaScript 文件输出目录。
+- baseUrl：解析非相对模块名称的基准目录。
+- incremental：启用增量编译，可以加快重新编译的速度。
+- skipLibCheck：跳过类型定义文件的检查。
+- strictNullChecks：启用严格的空值检查。
+- noImplicitAny：禁止隐式的 any 类型。
+- strictBindCallApply：启用严格的 bind、call 和 apply 方法检查。
+- forceConsistentCasingInFileNames：强制文件名的一致性。
+- noFallthroughCasesInSwitch：禁止在 switch 语句中出现贯穿（fallthrough）情况。
+*/ 
