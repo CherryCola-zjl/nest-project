@@ -2,6 +2,8 @@
 /dist
 /node_modules
 /build
+/website/dist
+/website/node_modules
 
 # Logs
 logs
@@ -18,6 +20,7 @@ lerna-debug.log*
 # Tests
 /coverage
 /.nyc_output
+/website/coverage
 
 # IDEs and editors
 /.idea
@@ -41,6 +44,9 @@ lerna-debug.log*
 .env.test.local
 .env.production.local
 .env.local
+/website/.env
+/website/.env.local
+/website/.env.*.local
 
 # temp directory
 .temp
