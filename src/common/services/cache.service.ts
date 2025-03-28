@@ -8,7 +8,7 @@ import { ConfigService } from '@nestjs/config';
 export class CacheService {
   constructor(
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
-    private configService: ConfigService,
+    private configService: ConfigService
   ) {}
 
   async get<T>(key: string): Promise<T | null> {
@@ -16,11 +16,7 @@ export class CacheService {
   }
 
   async set(key: string, value: any, ttl?: number): Promise<void> {
-    await this.cacheManager.set(
-      key,
-      value,
-      ttl || this.configService.get('cache.ttl'),
-    );
+    await this.cacheManager.set(key, value, ttl || this.configService.get('cache.ttl'));
   }
 
   async del(key: string): Promise<void> {
@@ -28,13 +24,7 @@ export class CacheService {
   }
 
   async reset(): Promise<void> {
-    // 使用 del 方法删除所有缓存，或者根据您的需求实现清除缓存的逻辑
-    // 这里可能需要根据您的实际需求调整
-    // 例如，您可能需要获取所有键并逐个删除
-    // 或者使用 Redis 客户端的 flushall 命令
-    console.warn(
-      'Cache reset method called, but implementation may need adjustment',
-    );
+    console.warn('Cache reset method called, but implementation may need adjustment');
     // 如果您使用 Redis，可以考虑直接访问 Redis 客户端
     // const redisClient = (this.cacheManager as any).store.getClient();
     // await redisClient.flushall();

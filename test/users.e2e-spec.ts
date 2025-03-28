@@ -37,16 +37,6 @@ describe('UsersController (e2e)', () => {
 
     app = moduleFixture.createNestApplication();
     await app.init();
-
-    // 登录获取 token
-    const loginResponse = await request(app.getHttpServer())
-      .post('/auth/login')
-      .send({
-        username: 'admin',
-        password: 'admin123',
-      });
-
-    authToken = loginResponse.body.access_token;
   });
 
   afterAll(async () => {

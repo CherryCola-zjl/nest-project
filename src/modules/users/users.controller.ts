@@ -1,13 +1,4 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Param,
-  Put,
-  Delete,
-  UseGuards,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Put, Delete, UseGuards } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { UsersService } from './users.service';
 import { User } from './entities/user.entity';
@@ -18,49 +9,55 @@ import { Cache } from '../../common/decorators/cache.decorator';
 @ApiTags('用户')
 @ApiBearerAuth()
 @Controller('users')
-@UseGuards(JwtAuthGuard)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
   @ApiOperation({ summary: '创建用户' })
   @ApiResponse({ status: 201, description: '用户创建成功' })
-  @ApiResponse({ status: 400, description: '请求参数错误' })
-  @ApiResponse({ status: 409, description: '用户名已存在' })
-  async create(@Body() createUserDto: CreateUserDto): Promise<User> {
-    return this.usersService.create(
+  async create(@Body() createUserDto: CreateUserDto): Promise<Partial<User>> {
+    const user = await this.usersService.create(
       createUserDto.username,
       createUserDto.password,
-      createUserDto.email,
+      createUserDto.email
     );
+    const { password, ...result } = user;
+    return result;
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get()
-  @Cache(3600) // 缓存1小时
+  @Cache(3600)
   @ApiOperation({ summary: '获取所有用户' })
   @ApiResponse({ status: 200, description: '获取成功' })
-  async findAll(): Promise<User[]> {
-    return this.usersService.findAll();
+  async findAll(): Promise<Partial<User>[]> {
+    const users = await this.usersService.findAll();
+    return users.map((user) => {
+      const { password, ...result } = user;
+      return result;
+    });
   }
 
   @Get(':id')
-  @Cache(1800) // 缓存30分钟
+  @Cache(1800)
   @ApiOperation({ summary: '获取指定用户' })
   @ApiResponse({ status: 200, description: '获取成功' })
-  @ApiResponse({ status: 404, description: '用户不存在' })
-  async findOne(@Param('id') id: string): Promise<User> {
-    return this.usersService.findById(id);
+  async findOne(@Param('id') id: string): Promise<Partial<User>> {
+    const user = await this.usersService.findById(id);
+    const { password, ...result } = user;
+    return result;
   }
 
   @Put(':id')
   @ApiOperation({ summary: '更新用户信息' })
   @ApiResponse({ status: 200, description: '更新成功' })
-  @ApiResponse({ status: 404, description: '用户不存在' })
   async update(
     @Param('id') id: string,
-    @Body() updateUserDto: Partial<User>,
-  ): Promise<User> {
-    return this.usersService.update(id, updateUserDto);
+    @Body() updateUserDto: Partial<User>
+  ): Promise<Partial<User>> {
+    const user = await this.usersService.update(id, updateUserDto);
+    const { password, ...result } = user;
+    return result;
   }
 
   @Delete(':id')
@@ -70,4 +67,4 @@ export class UsersController {
   async remove(@Param('id') id: string): Promise<void> {
     await this.usersService.delete(id);
   }
-} 
+}

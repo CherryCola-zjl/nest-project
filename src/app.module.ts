@@ -11,6 +11,10 @@ import { LoggerInterceptor } from './common/interceptors/logger.interceptor';
 import { LoggerService } from './common/services/logger.service';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { TransformInterceptor } from './common/interceptors/transform.interceptor';
+import { APP_FILTER } from '@nestjs/core';
+import { HttpExceptionFilter } from './common/filters/http-exception.filter';
+import { SensitiveDataInterceptor } from './common/interceptors/sensitive-data.interceptor';
 
 @Module({
   imports: [
@@ -37,6 +41,18 @@ import { AppService } from './app.service';
     {
       provide: APP_INTERCEPTOR,
       useClass: LoggerInterceptor,
+    },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: TransformInterceptor,
+    },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: SensitiveDataInterceptor,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: HttpExceptionFilter,
     },
     LoggerService,
     AppService, // 添加 AppService
