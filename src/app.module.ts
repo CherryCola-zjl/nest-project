@@ -15,11 +15,13 @@ import { TransformInterceptor } from './common/interceptors/transform.intercepto
 import { APP_FILTER } from '@nestjs/core';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 import { SensitiveDataInterceptor } from './common/interceptors/sensitive-data.interceptor';
+import configuration from './config/configuration';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+      load: [configuration], // 添加这行，加载配置文件
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',

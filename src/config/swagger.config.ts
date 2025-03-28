@@ -5,4 +5,4 @@ export const swaggerConfig = new DocumentBuilder()
   .setDescription('NestJS API 文档')
   .setVersion('1.0')
   .addBearerAuth()
-  .build(); 
+  .build();

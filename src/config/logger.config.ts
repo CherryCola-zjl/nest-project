@@ -34,9 +34,7 @@ winston.addColors(colors);
 const format = winston.format.combine(
   winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss:ms' }),
   winston.format.colorize({ all: true }),
-  winston.format.printf(
-    (info) => `${info.timestamp} ${info.level}: ${info.message}`,
-  ),
+  winston.format.printf((info) => `${info.timestamp} ${info.level}: ${info.message}`)
 );
 
 // 定义需要记录的文件类型
@@ -49,7 +47,7 @@ const transports = [
       nestWinstonModuleUtilities.format.nestLike('NestJS', {
         prettyPrint: true,
         colors: true,
-      }),
+      })
     ),
   }),
   // 错误日志文件
@@ -60,10 +58,7 @@ const transports = [
     maxSize: '20m',
     maxFiles: '30d', // 保留30天的错误日志
     level: 'error',
-    format: winston.format.combine(
-      winston.format.timestamp(),
-      winston.format.json(),
-    ),
+    format: winston.format.combine(winston.format.timestamp(), winston.format.json()),
   }),
   // 警告日志文件
   new winston.transports.DailyRotateFile({
@@ -73,10 +68,7 @@ const transports = [
     maxSize: '20m',
     maxFiles: '30d', // 保留30天的警告日志
     level: 'warn',
-    format: winston.format.combine(
-      winston.format.timestamp(),
-      winston.format.json(),
-    ),
+    format: winston.format.combine(winston.format.timestamp(), winston.format.json()),
   }),
   // 所有日志文件（仅开发环境）
   ...(process.env.NODE_ENV === 'development'
@@ -87,10 +79,7 @@ const transports = [
           zippedArchive: true,
           maxSize: '20m',
           maxFiles: '7d', // 开发环境只保留7天的完整日志
-          format: winston.format.combine(
-            winston.format.timestamp(),
-            winston.format.json(),
-          ),
+          format: winston.format.combine(winston.format.timestamp(), winston.format.json()),
         }),
       ]
     : []),
@@ -101,4 +90,4 @@ export const loggerConfig = {
   levels,
   format,
   transports,
-}; 
+};
