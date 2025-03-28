@@ -21,7 +21,7 @@ import configuration from './config/configuration';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [configuration], // 添加这行，加载配置文件
+      load: [configuration],
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',

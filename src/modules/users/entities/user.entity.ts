@@ -27,4 +27,4 @@ export class User extends BaseEntity {
   @ApiProperty({ description: '最后登录时间' })
   @Column({ nullable: true })
   lastLoginAt: Date;
-} 
+}

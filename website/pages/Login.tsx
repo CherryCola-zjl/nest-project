@@ -5,7 +5,6 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { post } from '../utils/request';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { log } from 'console';
 
 const LoginContainer = styled.div`
   display: flex;
@@ -92,7 +91,7 @@ const Login: React.FC = () => {
       localStorage.setItem('user', JSON.stringify(response.user));
 
       message.success('登录成功');
-      navigate('/dashboard');
+      navigate('/app/dashboard');
     } catch (error) {
       console.error('登录失败:', error);
     } finally {

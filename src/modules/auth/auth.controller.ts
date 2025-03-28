@@ -7,7 +7,7 @@ import { UsersService } from '../users/users.service';
 export class AuthController {
   constructor(
     private authService: AuthService,
-    private usersService: UsersService,
+    private usersService: UsersService
   ) {}
 
   @Post('register')
